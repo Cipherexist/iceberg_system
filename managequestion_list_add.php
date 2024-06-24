@@ -3,8 +3,6 @@
 include 'dbconfig.php'; 
 include 'loadtables.php'; 
 //include 'dbnavi.php'; 
-include 'loadmodules.php'; 
-
 
 @$viewtype = $_POST['viewtype']; 
 @$competence = $_POST['competence']; 
@@ -13,28 +11,21 @@ include 'loadmodules.php';
 @$c2 = $_POST['myc2']; 
 @$c3 = $_POST['myc3']; 
 @$c4 = $_POST['myc4']; 
-@$dateinsert =  loadregistrationdateformatdatetoday(); 
+@$questiontype = $_POST['myquestiontype']; 
+@$dateinsert =  loadregtoday(); 
 @$username =  $_COOKIE['usname'];
 
 
 
-@$sqlme = "INSERT INTO `preboard` (`QUESTION`,`C1`,`C2`,`C3`,`C4`,`VIEWTYPE`,`COMPETENCE`,`dateinsert`,`insertby`) VALUES ('$question','$c1','$c2','$c3','$c4','$viewtype','$competence','$dateinsert','$username')"; 
+@$sqlme = "INSERT INTO `preboard` (`QUESTION`,`C1`,`C2`,`C3`,`C4`,`VIEWTYPE`,`COMPETENCE`,`dateinsert`,`insertby`,`questiontype`) VALUES ('$question','$c1','$c2','$c3','$c4','$viewtype','$competence','$dateinsert','$username','$questiontype')"; 
 
 mysqli_query($con,$sqlme); 
 //mysqli_query($connavi,$sqlme); 
 
 if(!mysqli_error($con))
 {
-    if(!mysqli_error($connavi))
-    {
-        questionlist($viewtype,$competence,""); 
-
-    }
-    else 
-    {
-        echo mysqli_error($connavi);
-    }
     
+        questionlist($viewtype,$competence,"");  
    
 }
 else 
@@ -44,6 +35,17 @@ else
 }
 
 
+function loadregtoday()
+{
+	$myyear = date('Y'); 
+	$mydate = date('d'); 
+	$mymonth = date('m'); 
+		
+	
+	$completeregdate = $myyear. $mymonth. $mydate; 
+	
+	return $completeregdate; 
+}
 
 
 

@@ -6,7 +6,7 @@ $sqlhost = 'localhost';
 
 //$sqlhost = 'localhost'; 
 
-//$sqlhost = '139.99.27.216';
+$sqlhost = '139.99.27.216';
 
 //$mysql_user  = 'navigato_admin';
 

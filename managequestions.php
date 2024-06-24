@@ -216,7 +216,7 @@ body {
 
 margin: 0;
 
-padding: 0;
+padding: 10px 10px 10px 10px;
 
 
 
@@ -234,7 +234,7 @@ width: 100%;
 
 }
 
-.container
+.container-fluid
 {
   margin-top: 20px !important;
   background-color: white !important;
@@ -294,7 +294,7 @@ include 'navbardefault.php';
 
    <body>
    <div class="loading" id="loading" name="loading">Loading&#8230;</div>
-    <div class="container">
+    <div class="container-fluid">
 
 
     <h2 class="mb-4" style="margin-top:20px;">Quiz Management</h2>
@@ -378,6 +378,15 @@ include 'navbardefault.php';
                             <textarea class="form-control" id="c4id" rows="3"></textarea>
                     </div>
 
+                    <div class="form-group">
+                      <label for="">Select Type</label>
+                      <select class="form-control" id="questiontype">
+                        <option value="Primary">Primary Questions</option>
+                        <option value="Extra">Extra Questions</option>
+                        <option value="Checking">For Checking</option>
+                        <option value="Standby">Standby</option>
+                      </select>
+                    </div>
                     
                     <p id='errorsaving'></p>
 
@@ -456,24 +465,32 @@ include 'navbardefault.php';
     </div>
    
   </div>
-
+  <?php 
+  @$username = $_COOKIE['usname'];
+  echo "<input type='hidden' value='$username' id='username_value'>";
+  ?>
 
   <div class="overflow-scroll">
         <div class="form-group"> 
               <table class="table mydatatable">
                 <thead> 
                   <tr>
-                  <th>ID</th>
+                  <th>No</th>
                   <th>Question</th>
                   <th>Answer</th>
                   <th>C2</th>
                   <th>C3</th>
                   <th>C4</th>
+                  <th>Type</th>
+                  <th>dateupdate</th>
+                  <th>updateby</th>
                   <th>Option</th>
                 </tr>
 
                 </thead>
 
+              
+           
                 <tbody id="reloadpage" name="reloadpage">
                 
               
@@ -625,7 +642,7 @@ function loadcompetence()
             document.getElementById('c2id').value = $("#" + myid + "c2").text(); 
             document.getElementById('c3id').value = $("#" + myid + "c3").text(); 
             document.getElementById('c4id').value = $("#" + myid + "c4").text(); 
-
+            document.getElementById('questiontype').value = $("#" + myid + "questiontype").text(); 
 
           } catch (error) {
               alert(error); 
@@ -697,7 +714,8 @@ function loadcompetence()
           var c1 = $("#c1id").val(); 
           var c2 = $("#c2id").val(); 
           var c3 = $("#c3id").val();
-          var c4 = $("#c4id").val();  
+          var c4 = $("#c4id").val(); 
+          var questiontype = $("#questiontype").val(); 
 
               if(question==""||c1==""||c2==""||c3==""||c4=="")
               {
@@ -719,7 +737,8 @@ function loadcompetence()
                         myc1: c1, 
                         myc2: c2, 
                         myc3: c3, 
-                        myc4: c4
+                        myc4: c4,
+                        myquestiontype: questiontype
                       },function(result)
                       {
                         $("#ajaxloading").hide();
@@ -749,6 +768,7 @@ function loadcompetence()
           var c2 = $("#c2id").val(); 
           var c3 = $("#c3id").val();
           var c4 = $("#c4id").val();  
+          var questiontype = $("#questiontype").val();  
 
               if(question==""||c1==""||c2==""||c3==""||c4=="")
               {
@@ -769,13 +789,19 @@ function loadcompetence()
                     myc1: c1, 
                     myc2: c2, 
                     myc3: c3, 
-                    myc4: c4
+                    myc4: c4,
+                    myquestiontype: questiontype
                   },function(result)
                   {
                     $("#ajaxloading").hide();
                     document.getElementById('btn_closequestion').disabled = false ; 
                     document.getElementById('btn_savequestion').disabled = false ; 
+                    const mydate = new Date();
 
+                    const mymonth = mydate.getMonth; 
+                    const myday = mydate.getDate; 
+                    const myyear = mydate.getFullYear;
+                    var complete = mymonth.toString() + "/" + myday.toString() + "/" + myyear.toString(); 
                     $('#modalquiz').modal('hide');
                   //  document.getElementById(id + "row").innerHTML = '<tr id="' + id + 'row" style="background-color: green;">'; 
                     document.getElementById(id + "row").style.backgroundColor = "lightgreen";
@@ -784,6 +810,10 @@ function loadcompetence()
                     document.getElementById(id + "c2").innerHTML = c2; 
                     document.getElementById(id + "c3").innerHTML = c3; 
                     document.getElementById(id + "c4").innerHTML = c4; 
+                    document.getElementById(id + "questiontype").innerHTML = questiontype; 
+                    document.getElementById(id + "dateinsert").innerHTML = mydate; 
+                    document.getElementById(id + "insertby").innerHTML = $("#username_value").val(); 
+                    
 
                 //   document.getElementById(id + "row").innerHTML = '<tr id="' + id + 'row" style="background-color: green;">'; 
                 //   document.getElementById(id + "question").innerHTML = '<td id="' + id + 'question">' + question +'</td>'; 
