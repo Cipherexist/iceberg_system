@@ -476,6 +476,7 @@ include 'navbardefault.php';
                 <thead> 
                   <tr>
                   <th>No</th>
+                  <th>Competence</th>
                   <th>Question</th>
                   <th>Answer</th>
                   <th>C2</th>

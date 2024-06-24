@@ -35,6 +35,8 @@ function questionlist($view,$comp,$mysearch)
     {
         if(mysqli_num_rows($dbt)!=0)
         {
+            @$mytotal = mysqli_num_rows($dbt); 
+            echo "<tr><td colspan='11' class='bg-warning'> TOTAL COUNT: " . $mytotal . "</td></tr>";
             while($rows = mysqli_fetch_assoc($dbt))
             {
                 @$count +=1;
@@ -43,7 +45,9 @@ function questionlist($view,$comp,$mysearch)
                 @$delquestion = '"'. $rows['QUESTION']  .'"'; 
                 @$deltitle = '"'. $rows['QUESTION']  .'"'; 
                 echo "<tr id='". $rows['ID'] ."row'>"; 
+              
                 echo "<td>" . $count . "</td>"; 
+                echo "<td>" . $rows['VIEWTYPE']. " - C". $rows['COMPETENCE'] . "</td>"; 
                 echo "<td id='". $rows['ID'] ."question'>" . $rows['QUESTION'] . "</td>"; 
                 echo "<td id='". $rows['ID'] ."c1'>" . $rows['C1'] . "</td>"; 
                 echo "<td id='". $rows['ID'] ."c2'>" . $rows['C2'] . "</td>"; 
