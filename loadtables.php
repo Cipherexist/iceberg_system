@@ -46,7 +46,7 @@ function questionlist($view,$comp,$mysearch)
                 @$deltitle = '"'. $rows['QUESTION']  .'"'; 
                 echo "<tr id='". $rows['ID'] ."row'>"; 
               
-                echo "<td>" . $count . "</td>"; 
+                echo "<td>" . $rows['ID'] . "</td>"; 
                 echo "<td>" . $rows['VIEWTYPE']. " - C". $rows['COMPETENCE'] . "</td>"; 
                 echo "<td id='". $rows['ID'] ."question'>" . $rows['QUESTION'] . "</td>"; 
                 echo "<td id='". $rows['ID'] ."c1'>" . $rows['C1'] . "</td>"; 

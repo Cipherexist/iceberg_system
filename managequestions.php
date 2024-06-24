@@ -504,10 +504,6 @@ include 'navbardefault.php';
             </div>
               <!-- INSERT YOUR CODE HERE-->
 
-
-  
-
-
   </div>
   
 

@@ -44,13 +44,17 @@ require 'dbconfig.php';
 
 if(isset($_POST['usname']) && isset($_POST['psname']))
  {
-	 $huan = $_POST['usname'];
-	 $two = $_POST['psname'];
+	// $huan = $_POST['usname'];
+	 //$two = $_POST['psname'];
+
+	 @$huan = str_replace("'",'',$_POST['usname']);
+	 @$two = str_replace("'",'',$_POST['psname']);
+
 	 $usnameme = 'admin'; 
 	 $psnameme = '24428142258';
 	 
 	 
-$fetchqry  = "SELECT * FROM `user_data` WHERE username LIKE '". $huan ."' AND password LIKE '". $two ."'"; //SQL FORMAT FOR SEARCHING 
+$fetchqry  = "SELECT * FROM `user_data` WHERE username LIKE '$huan' AND password LIKE '$two'"; //SQL FORMAT FOR SEARCHING 
 
 $result=mysqli_query($con,$fetchqry);
 $numrows=mysqli_num_rows($result);
